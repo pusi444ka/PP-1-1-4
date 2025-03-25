@@ -13,20 +13,21 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 public class Util {
+    private static final String url = "jdbc:mysql://localhost:3306/users";
+    private static final String user = "root";
+    private static final String password = "root";
+    private static Connection connection;
+    private static SessionFactory sessionFactory;
 
     public static Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/users";
-        String user = "root";
-        String password = "root";
-
         try {
-             return DriverManager.getConnection(url, user, password);
+             connection = DriverManager.getConnection(url, user, password);
         }  catch (SQLException e) {
-            throw new SQLException(e);
+            e.printStackTrace();
         }
+        return connection;
     }
 
-    private static SessionFactory sessionFactory;
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
